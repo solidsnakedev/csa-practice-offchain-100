@@ -47,3 +47,13 @@ npx tsc
 ```
 node dist/index.js
 ```
+
+
+## Install bundler
+```
+pnpm add tsup -D
+```
+or
+```
+npm install --save-dev tsup
+```
