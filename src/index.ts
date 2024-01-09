@@ -3,6 +3,8 @@
 import * as test from "./test_yourname.js"
 import * as test_Mazen from "./test_Mazen.js"
 import * as test_Darjan from "./test_Darjan.js"
+//import with CommonJS
+// require
 
 test_Mazen.usersLog
 test_Darjan.printStatusCodeError()
@@ -11,3 +13,5 @@ test_Darjan.printStatusCodeError()
 const mynumber = "2dssk:what" // Blockfrost
 console.log(+mynumber)
 console.log(Number(mynumber))
+
+export * from "./test_Mazen.js"

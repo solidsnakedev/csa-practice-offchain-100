@@ -15,6 +15,9 @@ export function sayHello2() {
     
 }
 
+
+
+
 // Fix
 export type User = {
     name: string,
@@ -34,6 +37,8 @@ class UserObject {
     }
 }
 
+
+
 export const users: UserObject[] = [
     {
         name: 'Max Mustermann',
@@ -49,6 +54,10 @@ export const users: UserObject[] = [
 
 export function logPerson(user: UserObject) {
     console.log(` - ${user.name}, ${user.age}`);
+}
+
+export function getUserName(user: User) {
+    return user.name
 }
 
 console.log('Users:');

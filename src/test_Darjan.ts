@@ -66,3 +66,7 @@ function printStatusCode(code: string | number) {
 }
 export const printStatusCodeError = () => printStatusCode(404);
 export const printStatusCodeNoError = () => printStatusCode('404');
+
+export function returnNum(num: number) {
+    return num;
+}
