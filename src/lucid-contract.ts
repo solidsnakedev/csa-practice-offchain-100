@@ -24,6 +24,7 @@ const tx = await lucid
 export declare type Assets = Record<Unit | "lovelace", bigint>;
 
 const assetexample = {
-  "mypolicy+tokenName" : 1n
-  "mypolicy+tokenName2" : 1n
+  "mypolicy+tokenName" : 1n,
+  "mypolicy+tokenName2" : 1n,
+  "lovelace": 100_000_000n
 }
