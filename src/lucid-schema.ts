@@ -1,4 +1,9 @@
-import { Address, Data, getAddressDetails } from "@anastasia-labs/lucid-cardano-fork";
+import {
+  Address,
+  Data,
+  fromText,
+  getAddressDetails,
+} from "@anastasia-labs/lucid-cardano-fork";
 
 export function fromAddress(address: Address): AddressD {
   // We do not support pointer addresses!
@@ -43,6 +48,23 @@ export const CredentialSchema = Data.Enum([
 export type CredentialD = Data.Static<typeof CredentialSchema>;
 export const CredentialD = CredentialSchema as unknown as CredentialD;
 
+// Address	 
+// addressCredential :: Credential	 
+// addressStakingCredential :: Maybe StakingCredential
+
+// data StakingCredential
+//     -- | The staking hash is the `Credential` required to unlock a transaction output. Either
+//     -- a public key credential (`Crypto.PubKeyHash`) or
+//     -- a script credential (`Scripts.ValidatorHash`). Both are hashed with /BLAKE2b-244/. 28 byte.
+//     = StakingHash Credential
+//     -- | The certificate pointer, constructed by the given
+//     -- slot number, transaction and certificate indices.
+//     -- NB: The fields should really be all `Word64`, as they are implemented in `Word64`,
+//     -- but 'Integer' is our only integral type so we need to use it instead.
+//     | StakingPtr
+//         Integer -- ^ the slot number
+//         Integer -- ^ the transaction index (within the block)
+//         Integer -- ^ the certificate index (within the transaction)
 
 export const AddressSchema = Data.Object({
   paymentCredential: CredentialSchema,
@@ -64,7 +86,6 @@ export const AddressSchema = Data.Object({
 export type AddressD = Data.Static<typeof AddressSchema>;
 export const AddressD = AddressSchema as unknown as AddressD;
 
-
 export const AssetClassSchema = Data.Object(
   {
     symbol: Data.Bytes(),
@@ -74,8 +95,6 @@ export const AssetClassSchema = Data.Object(
 );
 export type AssetClassD = Data.Static<typeof AssetClassSchema>;
 export const AssetClassD = AssetClassSchema as unknown as AssetClassD;
-
-
 
 export const VestingDatumSchema = Data.Object({
   beneficiary: AddressSchema,
@@ -113,7 +132,7 @@ const deserializeddatum = Data.from(
   VestingDatum
 );
 console.log(deserializeddatum.assetClass.name);
-console.log(deserializeddatum)
+console.log(deserializeddatum);
 
 // 121_0([_
 //   121_0([_
@@ -151,3 +170,42 @@ console.log(deserializeddatum)
 // export const VestingDatum = VestingDatumSchema as unknown as VestingDatum;
 
 // ])
+
+// from bech32 to cbor
+console.log(
+  Data.to(
+    fromAddress(
+      "addr_test1qz7g8528f7huqe57xcxxauuf6wr57hhln8p37dpl7tx6kz7tdr442pl352svknwmp9gjtu8es7zk3nlzgehjj6wmrmfshwf3ux"
+    ),
+    AddressD
+  )
+);
+
+// d8799fd8799f581cbc83d1474fafc0669e360c6ef389d3874f5eff99c31f343ff2cdab0bffd8799fd8799fd8799f581ccb68eb5507f1a2a0cb4ddb095125f0f9878568cfe2466f2969db1ed3ffffffff
+
+// same address
+// 121_0([_
+//   121_0([_
+//       h'bc83d1474fafc0669e360c6ef389d3874f5eff99c31f343ff2cdab0b',
+//   ]),
+//   121_0([_
+//       121_0([_
+//           121_0([_
+//               h'cb68eb5507f1a2a0cb4ddb095125f0f9878568cfe2466f2969db1ed3',
+//           ]),
+//       ]),
+//   ]),
+// ])
+// tag 121
+// {
+//   {
+//     {
+//       {
+
+//       }
+//     }
+//   }
+
+// }
+
+console.log(fromText("mytoken"))

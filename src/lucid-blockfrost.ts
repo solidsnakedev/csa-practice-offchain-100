@@ -16,7 +16,7 @@ console.log(await lucid.wallet.getUtxos())
 
 const tx = await lucid.newTx()
   .payToAddress("addr_test1qp4cgm42esrud5njskhsr6uc28s6ljah0phsdqe7qmh3rfuyjgq5wwsca5camufxavmtnm8f6ywga3de3jkgmkwzma4sqv284l", { lovelace: 5_000_000n })
-  .complete();
+  .complete(); // phase 1 validation offline
 
 const signedTx = await tx.sign().complete();
 const txHash = await signedTx.submit();
